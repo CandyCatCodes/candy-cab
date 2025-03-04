@@ -1,0 +1,36 @@
+hello Marco. I had the same problem and did this to solve it...
+
+First you'll notice in the tutorial, it is v2 of the NativeWind docs
+ being used while current version of the docs is v4. 
+ Be sure to follow the v4 docs during your setup.
+Follow either Getting Started > React Native  or Expo Router and..
+
+1. Install NativeWind dependencies
+2. Setup tailwind.config.js
+3. Create that global.css file
+4. Add your babel.config.js AND metro.config.js as in the docs
+5. Import your global.css file into app/_layout.js
+
+Just follow those steps as in the docs, stop and restart your server 
+and all should be good, ready to proceed with the tutorial.
+Good luck
+
+
+@opeyemioyekunle1570
+3 months ago
+Run:
+npx expo customize
+
+
+
+Reply
+
+
+@godblessjess
+1 month ago
+ @stephenaraka5870  hi! i've been having this same issue and followed the docs.
+  i created the global file but when i import it, after trying to run it
+   on expo go, i get this error "Unable to resolve "./././global.css" 
+   from "app\_layout.tsx". the path is correct though.. if i don't import it,
+    the server runs on expo go but the screen is black, not the white background
+     with the text he added. any ideas on how i could fix this?? thank you!
