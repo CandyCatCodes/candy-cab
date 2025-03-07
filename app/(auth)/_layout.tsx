@@ -1,6 +1,19 @@
-import { Stack } from "expo-router";
+// import { Stack } from "expo-router";
+/*Clerk*/
+import { useAuth } from "@clerk/clerk-expo";
+import { Redirect, Stack } from "expo-router";
+/*Clerk*/
 
-const Layout = () => {
+import { JSX } from "react";
+
+export default function AuthRoutesLayout(): JSX.Element {
+  /*Clerk*/
+  const { isSignedIn } = useAuth();
+
+  if (isSignedIn) {
+    return <Redirect href={"/"} />;
+  }
+  /*Clerk*/
   return (
     <Stack>
       <Stack.Screen name="(welcome)" options={{ headerShown: false }} />
@@ -8,6 +21,4 @@ const Layout = () => {
       <Stack.Screen name="(sign-in)" options={{ headerShown: false }} />
     </Stack>
   );
-};
-
-export default Layout;
+}

@@ -15,7 +15,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@clerk/clerk-expo": "^2.8.3",
+    "@clerk/clerk-expo": "^2.8.4",
     "@clerk/types": "^4.47.0",
     "@expo/vector-icons": "^14.0.2",
     "@react-navigation/bottom-tabs": "^7.2.0",
@@ -45,7 +45,8 @@
     "react-native-screens": "~4.4.0",
     "react-native-swiper": "^1.6.0",
     "react-native-web": "~0.19.13",
-    "react-native-webview": "13.12.5"
+    "react-native-webview": "13.12.5",
+    "@expo/metro-runtime": "~4.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
