@@ -14,5 +14,6 @@
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "explicit"
   },
-  "eslint.validate": ["react", "html", "javascript", "typescript"]
+  "eslint.validate": ["react", "html", "javascript", "typescript"],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
