@@ -1,26 +1,65 @@
 import { icons } from "@/constants";
 import { Tabs } from "expo-router";
-import { Image, ImageSourcePropType, View } from "react-native";
+import React from "react";
+import {
+  Image,
+  ImageSourcePropType,
+  useWindowDimensions,
+  View,
+} from "react-native";
+
 const TabIcon = ({
   source,
   focused,
 }: {
   source: ImageSourcePropType;
   focused: boolean;
-}) => (
-  <View className="flex flex-row justify-center items-center rounded-full">
+}) => {
+  const { width } = useWindowDimensions();
+  const baseWidth = 375;
+  // Clamp the scale factor to a maximum of 1 so that icons don’t get bigger on larger screens
+  const scaleFactor = Math.min(width / baseWidth, 1);
+
+  // Calculate dynamic sizes based on the scale factor
+  const outerSize = 48 * scaleFactor; // originally 48px (w-12/h-12)
+  const innerSize = 40 * scaleFactor; // slightly smaller inner circle
+  const iconSize = 28 * scaleFactor; // originally 28px (w-7/h-7)
+
+  return (
     <View
-      className={`rounded-full w-12 h-12 items-center justify-center ${focused ? "bg-general-400" : ""}`}
+      style={{
+        width: outerSize,
+        height: outerSize,
+        borderRadius: outerSize / 2,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "transparent",
+      }}
     >
-      <Image
-        source={source}
-        tintColor="white"
-        resizeMode="contain"
-        className="w-7 h-7"
-      />
+      <View
+        style={{
+          width: innerSize,
+          height: innerSize,
+          borderRadius: innerSize / 2,
+          justifyContent: "center",
+          alignItems: "center",
+          // When focused, show the green background (#0CC25F)
+          backgroundColor: focused ? "#0CC25F" : "transparent",
+        }}
+      >
+        <Image
+          source={source}
+          tintColor="white"
+          resizeMode="contain"
+          style={{
+            width: iconSize,
+            height: iconSize,
+          }}
+        />
+      </View>
     </View>
-  </View>
-);
+  );
+};
 
 const Layout = () => (
   <Tabs

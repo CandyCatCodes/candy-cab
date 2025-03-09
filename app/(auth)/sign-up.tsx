@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Alert, Image, ScrollView, Text, View } from "react-native";
 import ReactNativeModal from "react-native-modal";
 
+import { fetchAPI } from "@/lib/fetch";
 import { useSignUp } from "@clerk/clerk-expo";
 
 import { router } from "expo-router";
@@ -57,7 +58,14 @@ const SignUp = () => {
       });
 
       if (signUpAttempt.status === "complete") {
-        // TODO: create a database user
+        await fetchAPI("/(api)/user", {
+          method: "POST",
+          body: JSON.stringify({
+            name: form.name,
+            email: form.email,
+            clerkId: signUpAttempt.createdUserId,
+          }),
+        });
         await setActive({ session: signUpAttempt.createdSessionId });
         setVerification({
           ...verification,
