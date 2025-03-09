@@ -28,11 +28,3 @@ const createTokenCache = (): TokenCache => {
 // SecureStore is not supported on the web
 export const tokenCache =
   Platform.OS !== "web" ? createTokenCache() : undefined;
-
-//This is what he put in here in the video under lib folder and then auth.ts but above is what Cleark said it wanted.
-
-// export interface TokenCache {
-//   getToken: (key: string) => Promise<string | null>;
-//   saveToken: (key: string, token: string) => Promise<void>;
-// clearToken: (key: string) => Promise<void>;
-// }

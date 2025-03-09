@@ -1,11 +1,10 @@
-import React from "react";
-import { Text, View } from "react-native";
+import { Stack } from "expo-router";
 
 const Layout = () => {
   return (
-    <View>
-      <Text>This is the layout component</Text>
-    </View>
+    <Stack>
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+    </Stack>
   );
 };
 
