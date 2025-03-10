@@ -7,9 +7,11 @@ import {
   ActivityIndicator,
   FlatList,
   Image,
+  Platform,
   Text,
   TouchableOpacity,
   View,
+  useWindowDimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -127,11 +129,14 @@ export default function Page() {
   const handleDestinationPress = () => {};
   const handleSignOut = () => {};
 
+  const { height: windowHeight } = useWindowDimensions();
+
   return (
     <SafeAreaView className="bg-general-500">
       <FlatList
         data={recentRides?.slice(0, 5)}
         renderItem={({ item }) => <RideCard ride={item} />}
+        style={Platform.OS === "web" ? { height: windowHeight } : {}}
         className="px-5"
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={{
@@ -179,7 +184,7 @@ export default function Page() {
               <Text className="text-xl font-JakartaBold mt-5 mb-3">
                 Your Current Location
               </Text>
-              <View className="flex flex-row items-center bg-transparent h-[300px]">
+              <View className="w-full h-[300px]">
                 <Map />
               </View>
             </>
