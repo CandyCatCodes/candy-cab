@@ -1,6 +1,8 @@
 import { TokenCache } from "@clerk/clerk-expo/dist/cache";
 import * as SecureStore from "expo-secure-store";
 import { Platform } from "react-native";
+import * as AuthSession from "expo-auth-session";
+import { fetchAPI } from "@/lib/fetch";
 
 const createTokenCache = (): TokenCache => {
   return {
@@ -28,3 +30,49 @@ const createTokenCache = (): TokenCache => {
 // SecureStore is not supported on the web
 export const tokenCache =
   Platform.OS !== "web" ? createTokenCache() : undefined;
+
+export const googleOAuth = async (startSSOFlow: any) => {
+  try {
+    const { createdSessionId, setActive, signUp } = await startSSOFlow({
+      strategy: "oauth_google",
+      redirectUrl: AuthSession.makeRedirectUri({
+        scheme: "myapp",
+        path: "/(root)/(tabs)/home",
+      }),
+    });
+
+    // If sign in was successful, set the active session
+    if (createdSessionId) {
+      if (setActive) {
+        await setActive({ session: createdSessionId });
+
+        if (signUp.createdUserId) {
+          await fetchAPI("/(api)/user", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: `${signUp.firstName} ${signUp.lastName}`,
+              email: signUp.emailAddress,
+              clerkId: signUp.createdUserId,
+            }),
+          });
+        }
+
+        return {
+          success: true,
+          code: "success",
+          message: "You have signed in successfully!",
+        };
+      }
+    }
+  } catch (error: any) {
+    console.error(error);
+    return {
+      success: false,
+      code: error.code,
+      message: error?.errors[0]?.longMessage || "Unknown error",
+    };
+  }
+};
