@@ -71,9 +71,9 @@ const SignUp = () => {
           ...verification,
           state: "success",
         });
-        console.log(
-          "Verification successful, setting showSuccessModal to true"
-        );
+        // console.log(
+        //   "Verification successful, setting showSuccessModal to true"
+        // );
         //setShowSuccessModal(true);
       } else {
         setVerification({
@@ -196,7 +196,7 @@ const SignUp = () => {
               title="Browse Home"
               onPress={() => {
                 setShowSuccessModal(false);
-                console.log("Navigating to home");
+                // console.log("Navigating to home");
                 router.replace("/(root)/(tabs)/home");
               }}
               className="mt-5"

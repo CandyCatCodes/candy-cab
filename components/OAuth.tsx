@@ -1,10 +1,27 @@
-import { Image, Text, View } from "react-native";
-
+import { Alert, Image, Text, View } from "react-native";
+import { useSSO } from "@clerk/clerk-expo";
 import CustomButton from "@/components/CustomButton";
 import { icons } from "@/constants";
+import { useCallback } from "react";
+import { googleOAuth } from "@/lib/auth";
+import { router } from "expo-router";
 
 const OAuth = () => {
-  const handleGoogleSignIn = async () => {};
+  const { startSSOFlow } = useSSO();
+
+  const handleGoogleSignIn = useCallback(async () => {
+    try {
+      const result = await googleOAuth(startSSOFlow);
+
+      if (result?.code === "session_exists" || result?.code === "success") {
+        router.push("/(root)/(tabs)/home");
+      }
+    } catch (error) {
+      // See https://clerk.com/docs/custom-flows/error-handling
+      // for more info on error handling
+      console.error(JSON.stringify(error, null, 2));
+    }
+  }, []);
 
   return (
     <View>

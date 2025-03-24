@@ -59,7 +59,7 @@ const Onboarding = () => {
             : swiperRef.current?.scrollBy(1)
         }
         //this is how we scroll to the next screen
-        className="w-11/12 mt-10"
+        className="w-11/12 mt-10 m-5 p-4"
       />
     </SafeAreaView>
   );
